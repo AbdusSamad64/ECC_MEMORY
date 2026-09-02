@@ -1,6 +1,10 @@
 module multicycle_rv32i (
-    input wire clk,
-    input wire rst
+    input  wire clk,
+    input  wire rst,
+    
+    // --- Physical FPGA Pins ---
+    input  wire rx_pin,  // UART Receiver Pin (Bahar se aayega)
+    output wire tx_pin   // UART Transmitter Pin (Bahar jayega)
 );
     // Registers
     reg [31:0] pc, old_pc;
@@ -15,6 +19,18 @@ module multicycle_rv32i (
     wire [31:0] write_back_data;
     wire        zero;
 
+    // --- Interrupts & CSR Wires ---
+    wire        ext_irq; // NAYA: Ab ye internal wire hai jo UART se CSR tak jayegi
+    wire        trap_pending, trap_entry, trap_exit, csr_write;
+    wire [31:0] mtvec_out, mepc_out, csr_read_data;
+
+    // --- SoC Interconnect Wires ---
+    wire        ram_re, ram_we;
+    wire [31:0] ram_addr, ram_wdata, ram_rdata;
+    
+    wire        uart_re, uart_we;
+    wire [31:0] uart_addr, uart_wdata, uart_rdata;
+
     // Control Signals
     wire ir_write, pc_write, reg_write, i_or_d, mem_write, mem_read, mem_to_reg, pc_source;
     wire [1:0] alu_src_a, alu_src_b;
@@ -27,14 +43,22 @@ module multicycle_rv32i (
             old_pc <= 32'b0;
         end else begin
             if (ir_write) old_pc <= pc;
-            if (pc_write) pc     <= (pc_source) ? alu_out : alu_result;
+            
+            if (pc_write) begin
+                if (trap_entry)
+                    pc <= mtvec_out;      
+                else if (trap_exit)
+                    pc <= mepc_out;       
+                else
+                    pc <= (pc_source) ? alu_out : alu_result; 
+            end
         end
     end
 
     // 2. Multi-Cycle Pipeline Registers
     always @(posedge clk) begin
         if (ir_write) ir <= inst_data;
-        mdr     <= data_mem_out;
+        mdr     <= data_mem_out; 
         a_reg   <= read_data1;
         b_reg   <= read_data2;
         alu_out <= alu_result;
@@ -49,23 +73,82 @@ module multicycle_rv32i (
                            (alu_src_b == 2'b01) ? 32'd4   :
                            (alu_src_b == 2'b10) ? imm_ext : 32'b0;
 
-    assign write_back_data = (mem_to_reg) ? mdr : alu_out;
+    wire is_system_instr = (ir[6:0] == 7'b1110011);
+    assign write_back_data = (is_system_instr) ? csr_read_data : 
+                             (mem_to_reg)      ? mdr : alu_out;
 
     // 4. Submodule Instantiations
+
+    // SoC Interconnect 
+    soc_interconnect bus_inst (
+        .cpu_addr(alu_out),
+        .cpu_wdata(b_reg),
+        .cpu_mem_read(mem_read),
+        .cpu_mem_write(mem_write),
+        .cpu_rdata(data_mem_out), 
+
+        .ram_re(ram_re),
+        .ram_we(ram_we),
+        .ram_addr(ram_addr),
+        .ram_wdata(ram_wdata),
+        .ram_rdata(ram_rdata),
+
+        .uart_re(uart_re),
+        .uart_we(uart_we),
+        .uart_addr(uart_addr),
+        .uart_wdata(uart_wdata),
+        .uart_rdata(uart_rdata)
+    );
+
+    // Data Memory (SRAM)
+    data_mem dmem_inst (
+        .clk(clk),
+        .mem_read(ram_re),       
+        .mem_write(ram_we),      
+        .addr(ram_addr),         
+        .write_data(ram_wdata),
+        .read_data(ram_rdata)
+    );
+
+    // UART Module
+    uart_top #(
+        .CLK_FREQ(100_000_000), 
+        .BAUD_RATE(115200)
+    ) uart_inst (
+        .clk(clk),
+        .rst(rst),
+        .re(uart_re),
+        .we(uart_we),
+        .addr(uart_addr),
+        .wdata(uart_wdata),
+        .rdata(uart_rdata),
+        .rx_interrupt(ext_irq), // UART generate karega interrupt
+        .rx_pin(rx_pin),        // FPGA pin
+        .tx_pin(tx_pin)         // FPGA pin
+    );
+
+    // CSR File for Interrupts
+    csr_file csr_inst (
+        .clk(clk),
+        .rst(rst),
+        .csr_write(csr_write),
+        .csr_addr(ir[31:20]),
+        .write_data(a_reg),
+        .read_data(csr_read_data),
+        .ext_irq(ext_irq),      // UART ka interrupt yahan receive hoga
+        .trap_entry(trap_entry),
+        .trap_exit(trap_exit),
+        .current_pc(old_pc),
+        .mtvec_out(mtvec_out),
+        .mepc_out(mepc_out),
+        .trap_pending(trap_pending)
+    );
+
     inst_mem imem_inst (
         .clk(clk),
         .mem_read(mem_read),
-        .addr(pc),              // Instruction Fetch reads directly from PC
+        .addr(pc),
         .read_data(inst_data)
-    );
-
-    data_mem dmem_inst (
-        .clk(clk),
-        .mem_read(mem_read),
-        .mem_write(mem_write),
-        .addr(alu_out),         // Data Access uses calculated ALU address
-        .write_data(b_reg),
-        .read_data(data_mem_out)
     );
 
     reg_file rf_inst (
@@ -99,6 +182,10 @@ module multicycle_rv32i (
         .funct3(ir[14:12]),
         .funct7(ir[31:25]),
         .zero(zero),
+        .trap_pending(trap_pending),
+        .trap_entry(trap_entry),
+        .trap_exit(trap_exit),
+        .csr_write(csr_write),
         .ir_write(ir_write),
         .pc_write(pc_write),
         .reg_write(reg_write),
