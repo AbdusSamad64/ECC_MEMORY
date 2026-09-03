@@ -570,23 +570,27 @@ module tb_multicycle_rv32i;
         // 1. CPU normal addition start karega (Step = +1)
         #50000; 
 
-        // 2. CPU +1 mein busy hai, hum achanak '10' bhejte hain!
-        // Ab ISR is 10 ko pakar kar x8 mein dal dega.
-        send_uart_byte(8'd10); 
+        // 2. CPU +1 mein busy hai, hum 32-bit instruction ke 4 bytes bhejte hain:
+        //    0x93 0x00 0x00 0x08  => 0x08000093
+        send_uart_byte(8'h93);
+        send_uart_byte(8'h00);
+        send_uart_byte(8'h00);
+        send_uart_byte(8'h08);
 
         // 3. Wapas aane aur naye step size se thora calculate karne ka wait
-        #20000; 
+        #300000; 
 
         $display("==================================================");
         $display("             EXECUTION RESULTS                    ");
         $display("==================================================");
-        $display("x10 (UART Data received) = %d", dut.rf_inst.registers[10]);
-        $display("x8  (Current Step Size)  = %d (ISKO 1 SE 10 HO JANA CHAHIYE!)", dut.rf_inst.registers[8]);
+        $display("x10 (UART Data received) = 0x%h (Expected: 0x08000093)", dut.rf_inst.registers[10]);
+        $display("x8  (Current Step Size)  = 0x%h (Expected: 0x08000093)", dut.rf_inst.registers[8]);
         $display("x5  (Final Counter Val)  = %d", dut.rf_inst.registers[5]);
         $display("==================================================");
 
-        if (dut.rf_inst.registers[8] == 10) begin
-            $display(">>> SUCCESS: UART CHANGED THE MAIN PROGRAM BEHAVIOR! <<<");
+        if (dut.rf_inst.registers[10] == 32'h08000093 &&
+            dut.rf_inst.registers[8]  == 32'h08000093) begin
+            $display(">>> SUCCESS: UART RX FIFO DELIVERED 32-BIT WORD! <<<");
         end else begin
             $display(">>> FAILURE <<<");
         end

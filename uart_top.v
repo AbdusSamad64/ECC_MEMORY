@@ -28,10 +28,17 @@ module uart_top #(
     localparam CLOCKS_PER_BIT = CLK_FREQ / BAUD_RATE;
     
     // Internal Signals
-    reg  [7:0] tx_data, rx_data_out;
-    reg        tx_start;
-    wire       tx_busy, rx_ready;
-    reg        rx_ready_reg;
+    reg  [7:0] rx_data_out;
+    wire       rx_ready;
+    wire [31:0] rx_word_data;
+    wire        rx_fifo_full;
+    wire        rx_read_clear;
+    wire [7:0]  tx_fifo_byte_data;
+    wire        tx_fifo_byte_valid;
+    wire        tx_fifo_busy;
+    wire        tx_byte_ready;
+    wire        tx_word_load;
+    wire        tx_busy;
 
     // ========================================================
     // STATE MACHINE DEFINITIONS (Moved up to fix declaration error)
@@ -49,47 +56,22 @@ module uart_top #(
     reg [1:0]  rx_state;
 
     // Interrupt Mapping & Status
-    assign rx_interrupt = rx_ready_reg;
-    assign tx_busy      = (tx_state != TX_IDLE);
+    assign rx_interrupt  = rx_fifo_full;
+    assign tx_byte_ready = (tx_state == TX_IDLE);
+    assign tx_busy       = tx_fifo_busy | (tx_state != TX_IDLE);
+    assign rx_read_clear = re && (addr[7:0] == DATA_REG) && rx_fifo_full;
+    assign tx_word_load  = we && (addr[7:0] == DATA_REG) && !tx_fifo_busy;
 
     // ========================================================
     // 1. MEMORY-MAPPED I/O LOGIC
     // ========================================================
     
-    // WRITE LOGIC
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
-            tx_start <= 1'b0;
-            tx_data  <= 8'h00;
-        end else begin
-            tx_start <= 1'b0; // Default: don't start
-            if (we) begin
-                if (addr[7:0] == DATA_REG) begin
-                    tx_data  <= wdata[7:0];
-                    tx_start <= 1'b1; // Trigger TX
-                end
-            end
-        end
-    end
-
-    // INTERRUPT FLAG CLEAR (Sequential)
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
-            rx_ready_reg <= 1'b0;
-        end else begin
-            if (rx_ready) 
-                rx_ready_reg <= 1'b1;
-            else if (re && addr[7:0] == DATA_REG) 
-                rx_ready_reg <= 1'b0; // Hardware Auto-Clear
-        end
-    end
-
     // READ LOGIC (Combinational/Asynchronous)
     always @(*) begin
         if (re) begin
             case (addr[7:0])
-                DATA_REG:   rdata = {24'b0, rx_data_out};
-                STATUS_REG: rdata = {30'b0, rx_ready_reg, tx_busy}; 
+                DATA_REG:   rdata = rx_word_data;
+                STATUS_REG: rdata = {30'b0, rx_fifo_full, tx_busy}; 
                 default:    rdata = 32'b0;
             endcase
         end else begin
@@ -114,8 +96,8 @@ module uart_top #(
             case (tx_state)
                 TX_IDLE: begin
                     tx_pin <= 1'b1;
-                    if (tx_start) begin
-                        tx_shift_reg <= tx_data;
+                    if (tx_fifo_byte_valid) begin
+                        tx_shift_reg <= tx_fifo_byte_data;
                         tx_state     <= TX_START;
                         tx_clk_cnt   <= 0;
                     end
@@ -165,6 +147,28 @@ module uart_top #(
     reg        rx_ready_internal;
 
     assign rx_ready = rx_ready_internal;
+
+    uart_rx_fifo rx_fifo_inst (
+        .clk(clk),
+        .rst(rst),
+        .byte_valid(rx_ready),
+        .byte_data(rx_data_out),
+        .read_clear(rx_read_clear),
+        .data_out(rx_word_data),
+        .full(rx_fifo_full)
+    );
+
+    uart_tx_fifo tx_fifo_inst (
+        .clk(clk),
+        .rst(rst),
+        .load_word(tx_word_load),
+        .word_in(wdata),
+        .tx_byte_ready(tx_byte_ready),
+        .tx_byte_data(tx_fifo_byte_data),
+        .tx_byte_valid(tx_fifo_byte_valid),
+        .busy(tx_fifo_busy),
+        .tx_done()
+    );
 
     always @(posedge clk or posedge rst) begin
         if (rst) begin
