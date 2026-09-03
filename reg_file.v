@@ -11,13 +11,7 @@ module reg_file (
 );
     reg [31:0] registers [0:31];
 
-    // Initialize registers to zero
-    integer i;
-    initial begin
-        for (i = 0; i < 32; i = i + 1)
-            registers[i] = 32'b0;
-    end
-
+    
     // Read ports (x0 is hardwired to 0)
     assign read_data1 = (rs1 == 5'b0) ? 32'b0 : registers[rs1];
     assign read_data2 = (rs2 == 5'b0) ? 32'b0 : registers[rs2];

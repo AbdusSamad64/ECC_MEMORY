@@ -1,4 +1,10 @@
 // Data Memory (Read/Write)
+//
+// This model intentionally behaves like a simple SRAM block with one-cycle
+// read latency and one-cycle write capture.  Real SRAM macros typically do not
+// provide combinational read data; they present the selected word on the next
+// clock edge.  Keeping this timing model makes the CPU interface compatible
+// with a later replacement by real SRAM macros.
 module data_mem (
     input  wire        clk,
     input  wire        mem_read,
@@ -9,13 +15,15 @@ module data_mem (
 );
     reg [31:0] mem [0:255];
 
-    always @(*) begin
+    // Read latency: one cycle delayed, like a real SRAM macro.
+    always @(posedge clk) begin
         if (mem_read)
-            read_data = mem[addr[9:2]];
+            read_data <= mem[addr[9:2]];
         else
-            read_data = 32'b0;
+            read_data <= 32'b0;
     end
 
+    // Write: captured on active clock edge.
     always @(posedge clk) begin
         if (mem_write) begin
             mem[addr[9:2]] <= write_data;
