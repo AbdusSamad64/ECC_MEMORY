@@ -35,3 +35,4 @@ module uart_rx_fifo (
         end
     end
 endmodule
+
