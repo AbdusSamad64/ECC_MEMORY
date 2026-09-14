@@ -346,6 +346,10 @@ module tb_multicycle_rv32i;
     // --- Physical UART Interface ---
     reg  rx_pin;
     wire tx_pin;
+	 
+			 // --- NAYA ---
+	 reg        fi_en;
+	 reg [38:0] fi_mask;
 
     // Instrumentation Variables
     integer cycle_count = 0;
@@ -363,7 +367,9 @@ module tb_multicycle_rv32i;
         .clk(clk),
         .rst(rst),
         .rx_pin(rx_pin), 
-        .tx_pin(tx_pin)  
+        .tx_pin(tx_pin),
+		  .fi_en(fi_en),           // <-- normal port connection
+        .fi_mask(fi_mask)
     );
 
     always #5 clk = ~clk;
@@ -402,18 +408,18 @@ module tb_multicycle_rv32i;
                     if (current_pc != last_printed_pc) begin
                         
                         // NAYI LOGIC: Agar PC 0x28 se bahar nikla (ISR gaya), toh counter ko 10 set kar do
-                        if (current_pc > 32'h28) begin
+                        if (current_pc > 32'h78) begin
                             print_allow_counter = 10; // MRET ke baad 10 insts dekhne ke liye
                         end
 
                         // Spam Prevention Logic updated
-                        if (instr_count < 50 || current_pc > 32'h28 || print_allow_counter > 0) begin
+                        if (instr_count < 50 || current_pc > 32'h78 || print_allow_counter > 0) begin
                             
                             $display("Instr #%0d | PC: 0x%08h | IR: 0x%08h | Cycles Taken: %0d", 
                                      current_instr_num, current_pc, current_ir, per_instr_cycles);
                             
                             // Agar CPU wapas normal background task (<=0x28) mein agaya hai toh counter kam karo
-                            if (current_pc <= 32'h28 && instr_count >= 50) begin
+                            if (current_pc <= 32'h78 && instr_count >= 50) begin
                                 print_allow_counter = print_allow_counter - 1;
                             end
 
@@ -527,37 +533,83 @@ module tb_multicycle_rv32i;
         clk = 0;
         rst = 1;
         rx_pin = 1; 
-
+		  fi_en   = 1'b0;      // <-- NAYA: shuru mein disabled, koi fault nahi
+		  fi_mask = 39'b0;     // <-- NAYA
+			
+			
+		  dut.dmem_inst.u_dmem.mem[64] = 39'h0;  // 0x100/4 = 64, ek known encoded-zero value
         // -------------------------------------------------------------
         // PRELOAD MEMORY (Dynamic Counter Scenario)
         // -------------------------------------------------------------
         
         // --- BOOT CODE ---
-        dut.imem_inst.mem[0] = 32'h08000093; // 0x00: ADDI x1, x0, 0x80
-        dut.imem_inst.mem[1] = 32'h30509073; // 0x04: CSRRW x0, mtvec, x1 
-        dut.imem_inst.mem[2] = 32'h000010B7; // 0x08: LUI x1, 1 
-        dut.imem_inst.mem[3] = 32'h0010D093; // 0x0c: SRLI x1, x1, 1 
-        dut.imem_inst.mem[4] = 32'h30409073; // 0x10: CSRRW x0, mie, x1 
-        dut.imem_inst.mem[5] = 32'h00800093; // 0x14: ADDI x1, x0, 8
-        dut.imem_inst.mem[6] = 32'h30009073; // 0x18: CSRRW x0, mstatus, x1
+        dut.imem_inst.mem[0] = 32'h08000093; // 0x00: ADDI x1, x0, 0x80      -> x1 = 0x80 (ISR addr)
+        dut.imem_inst.mem[1] = 32'h30509073; // 0x04: CSRRW x0, mtvec, x1    -> mtvec = 0x80
 
-        // --- NORMAL BACKGROUND PROGRAM ---
-        dut.imem_inst.mem[7] = 32'h00000293; // 0x1c: ADDI x5, x0, 0  (Counter = 0)
-        dut.imem_inst.mem[8] = 32'h00100413; // 0x20: ADDI x8, x0, 1  (Step = 1)
-        
-        // --- MAIN LOOP ---
-        dut.imem_inst.mem[9] = 32'h008282B3; // 0x24: ADD x5, x5, x8  <-- LOOP START
-        dut.imem_inst.mem[10]= 32'hfe000ee3; // 0x28: BEQ x0, x0, -4  (Jump back to 0x24)
+        dut.imem_inst.mem[2] = 32'h000010B7; // 0x08: LUI x1, 1              -> x1 = 0x1000 (bit 12)
+        dut.imem_inst.mem[3] = 32'h000011B7; // 0x0c: LUI x3, 1              -> x3 = 0x1000
+        dut.imem_inst.mem[4] = 32'h0011D193; // 0x10: SRLI x3, x3, 1         -> x3 = 0x0800 (bit 11)
+        dut.imem_inst.mem[5] = 32'h0030E0B3; // 0x14: OR x1, x1, x3          -> x1 = 0x1800 (bit11 | bit12)
+        dut.imem_inst.mem[6] = 32'h30409073; // 0x18: CSRRW x0, mie, x1      -> mie = 0x1800
+
+        dut.imem_inst.mem[7] = 32'h00800093; // 0x1c: ADDI x1, x0, 8         -> x1 = 8
+        dut.imem_inst.mem[8] = 32'h30009073; // 0x20: CSRRW x0, mstatus, x1  -> mstatus[3] = 1
+
+        // --- NORMAL BACKGROUND PROGRAM (ab yahan se, index +2 shift hua) ---
+        //dut.imem_inst.mem[9]  = 32'h00000293; // 0x24: ADDI x5, x0, 0
+        //dut.imem_inst.mem[10] = 32'h00100413; // 0x28: ADDI x8, x0, 1
+
+        //dut.imem_inst.mem[11] = 32'h008282B3; // 0x2c: ADD x5, x5, x8   <-- LOOP START
+        //dut.imem_inst.mem[12] = 32'hfe000ee3; // 0x30: BEQ x0, x0, -4   (wapas 0x2c par)
+		  
+		  // Naya loop (ek extra register x17 use karke, RAM address 0x100 se dummy read karo)
+			dut.imem_inst.mem[9]  = 32'h00000293; // 0x24: ADDI x5, x0, 0
+			dut.imem_inst.mem[10] = 32'h00100413; // 0x28: ADDI x8, x0, 1
+			dut.imem_inst.mem[11] = 32'h10000913; // 0x2c: ADDI x18, x0, 0x100   <-- NAYA: dummy address x18=0x100
+
+			dut.imem_inst.mem[12] = 32'h008282B3; // 0x30: ADD x5, x5, x8       <-- LOOP START (address shift hua)
+			dut.imem_inst.mem[13] = 32'h00092883; // 0x34: LW x17, 0(x18)        <-- NAYA: dummy read (fault-injection ka target)
+			dut.imem_inst.mem[14] = 32'hfe000ce3; // 0x38: BEQ x0, x0, -8        <-- wapas 0x30 par
 
         // --- ISR CODE (At PC = 0x80, Array Index = 32) ---
-        dut.imem_inst.mem[32] = 32'h40000137; // 0x80: LUI x2, 0x40000
-        dut.imem_inst.mem[33] = 32'h00012503; // 0x84: LW x10, 0(x2)
-        dut.imem_inst.mem[34] = 32'h34401073; // 0x88: CSRRW x0, mip, x0
-        
-        // Nayi Instruction: UART Data (x10) ko Step Size (x8) mein daalo
-        dut.imem_inst.mem[35] = 32'h00a00433; // 0x8c: ADD x8, x0, x10 
-        
-        dut.imem_inst.mem[36] = 32'h30200073; // 0x90: MRET
+        // --- ISR CODE (0x80 onwards) ---
+        // --- ISR CODE (0x80 onwards) ---
+
+        // 0x80: CSRRW x11, mip, x0
+        dut.imem_inst.mem[32] = 32'h344015F3;
+
+        // 0x84: SRLI x13, x11, 12
+        dut.imem_inst.mem[33] = 32'h00C5D693;
+
+        // 0x88: ANDI x13, x13, 1
+        dut.imem_inst.mem[34] = 32'h0016F693;
+
+        // 0x8c: BNE x13, x0, +20   -> ECC_HANDLER (0xA0) par jao
+        dut.imem_inst.mem[35] = 32'h00069A63;
+
+        // --- UART_HANDLER ---
+        // 0x90: LUI x2, 0x40000
+        dut.imem_inst.mem[36] = 32'h40000137;
+        // 0x94: LW x10, 0(x2)
+        dut.imem_inst.mem[37] = 32'h00012503;
+        // 0x98: ADD x8, x0, x10
+        dut.imem_inst.mem[38] = 32'h00a00433;
+        // 0x9c: BEQ x0, x0, +16   -> MRET tak jump (ECC_HANDLER + status-read skip)
+        dut.imem_inst.mem[39] = 32'h00000863;   // offset ab +16 hai kyunke ECC_HANDLER lamba ho gaya
+
+        // --- ECC_HANDLER (0xA0) ---
+        // 0xa0: ADDI x9, x0, 1     -> x9 = 1 (flag)
+        dut.imem_inst.mem[40] = 32'h00100493;
+        // 0xa4: LUI x14, 0x50000   -> x14 = ECC status base
+        dut.imem_inst.mem[41] = 32'h50000737;
+        // 0xa8: LW x15, 8(x14)     -> x15 = single_err_count
+        dut.imem_inst.mem[42] = 32'h00872783;
+        // 0xac: LW x16, 12(x14)    -> x16 = double_err_count
+        dut.imem_inst.mem[43] = 32'h00C72803;
+
+        // --- COMMON EXIT ---
+        // 0xb0: MRET
+        dut.imem_inst.mem[44] = 32'h30200073;
 
         // Release reset
         #15;
@@ -588,12 +640,47 @@ module tb_multicycle_rv32i;
         $display("x5  (Final Counter Val)  = %d", dut.rf_inst.registers[5]);
         $display("==================================================");
 
+
+        //$display("x15 (Single-err count) = %0d", dut.rf_inst.registers[15]);
+        //$display("x16 (Double-err count) = %0d", dut.rf_inst.registers[16]);
+
         if (dut.rf_inst.registers[10] == 32'h08000093 &&
             dut.rf_inst.registers[8]  == 32'h08000093) begin
             $display(">>> SUCCESS: UART RX FIFO DELIVERED 32-BIT WORD! <<<");
         end else begin
             $display(">>> FAILURE <<<");
         end
+		  
+		  
+        // =============================================================
+        // NAYA: ECC FAULT-INJECTION TESTS (UART test ke bilkul baad)
+        // =============================================================
+        $display("==================================================");
+        $display("          ECC FAULT INJECTION TEST                ");
+        $display("==================================================");
+
+        // --- TEST A: SINGLE-BIT ERROR ---
+        $display("[%0t] Injecting SINGLE-bit error...", $time);
+        fi_en   = 1'b1;
+        fi_mask = 39'h0000000001;   // sirf 1 bit flip
+        #20;                      // itna wait taake CPU koi LOAD zaroor kare (background loop mein LOAD nahi hai abhi, isliye neeche note dekho)
+        fi_en   = 1'b0;
+        #500;
+
+        $display("Single-err sticky = %0d", dut.sb_sticky);
+        $display("Single-err count  = %0d", dut.sb_count);
+
+        // --- TEST B: DOUBLE-BIT ERROR ---
+        $display("[%0t] Injecting DOUBLE-bit error...", $time);
+        fi_en   = 1'b1;
+        fi_mask = 39'h0000000003;   // 2 bits flip
+        #20;
+        fi_en   = 1'b0;
+        #500;
+
+        $display("Double-err sticky = %0d", dut.db_sticky);
+        $display("Double-err count  = %0d", dut.db_count);
+        $display("x9 (ECC flag)     = %0d", dut.rf_inst.registers[9]);
 
         $finish;
     end

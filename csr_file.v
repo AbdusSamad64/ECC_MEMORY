@@ -111,7 +111,10 @@ module csr_file (
     input  wire        ext_irq,      
     input  wire        trap_entry,   
     input  wire        trap_exit,    
-    input  wire [31:0] current_pc,   
+    input  wire [31:0] current_pc,
+
+    //ECC interrupt
+    input  wire        ecc_double_err_irq,   
     
     // Outputs to Datapath & FSM
     output wire [31:0] mtvec_out,
@@ -128,9 +131,15 @@ module csr_file (
 
     assign mtvec_out = mtvec;
     assign mepc_out  = mepc;
+	 
+	   // --- NAYA: Edge-Detection Registers ---
+    reg ext_irq_prev, ecc_irq_prev;
 
     // Interrupt Condition
-    assign trap_pending = mstatus[3] & mie[11] & mip[11];
+    //assign trap_pending = mstatus[3] & mie[11] & mip[11];
+
+    // AB (UART OR ECC dono, agar mie mein respective bit enabled ho):
+    assign trap_pending = mstatus[3] & (|(mie[12:11] & mip[12:11]));
 
     // CSR Read Logic (Asynchronous)
     always @(*) begin
@@ -152,7 +161,13 @@ module csr_file (
             mip     <= 32'b0;
             mtvec   <= 32'b0;
             mepc    <= 32'b0;
+				ext_irq_prev <= 1'b0;   // <-- NAYA
+            ecc_irq_prev <= 1'b0;   // <-- NAYA
+
         end else begin
+				// --- NAYA: Edge-detect registers, HAR CYCLE update hote hain ---
+            ext_irq_prev <= ext_irq;
+            ecc_irq_prev <= ecc_double_err_irq;
             
             // ----------------------------------------------------
             // 1. SOFTWARE WRITES (Lowest Priority)
@@ -173,9 +188,12 @@ module csr_file (
             // ----------------------------------------------------
             
             // UART Interrupt Aagaya
-            if (ext_irq) begin
+            if (ext_irq && !ext_irq_prev) begin
                 mip[11] <= 1'b1; 
             end
+
+            //Ecc interrupt agya
+            if (ecc_double_err_irq && !ecc_irq_prev) mip[12] <= 1'b1;
             
             // Trap mein Entry
             if (trap_entry) begin

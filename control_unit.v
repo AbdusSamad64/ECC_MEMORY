@@ -255,11 +255,23 @@ module control_unit (
                 endcase
             end
 
-            EXECUTE: begin
+            /*EXECUTE: begin
                 if (opcode == 7'b0000011 || opcode == 7'b0100011)
                     next_state = MEMORY;
                 else if (opcode == 7'b1110011)
                     next_state = (trap_pending) ? TRAP : FETCH;
+                else
+                    next_state = WRITEBACK;
+            end*/
+            EXECUTE: begin
+                if (opcode == 7'b0000011 || opcode == 7'b0100011)
+                    next_state = MEMORY;
+                else if (opcode == 7'b1110011) begin
+                    if (funct3 == 3'b000)           // MRET
+                        next_state = (trap_pending) ? TRAP : FETCH;
+                    else                             // CSRRW (funct3=001) — ab reg mein save hoga
+                        next_state = WRITEBACK;
+                end
                 else
                     next_state = WRITEBACK;
             end
