@@ -1,4 +1,8 @@
 // Instruction Memory (Read-Only)
+//
+// This intentionally models a single-cycle SRAM-like read latency so the CPU
+// interface can later be migrated to real instruction SRAM macros without a
+// major change in the control-flow assumptions.
 module inst_mem (
     input  wire        clk,
     input  wire        mem_read,
@@ -7,10 +11,10 @@ module inst_mem (
 );
     reg [31:0] mem [0:255];
 
-    always @(*) begin
+    always @(posedge clk) begin
         if (mem_read)
-            read_data = mem[addr[9:2]];
+            read_data <= mem[addr[9:2]];
         else
-            read_data = 32'b0;
+            read_data <= 32'b0;
     end
 endmodule
