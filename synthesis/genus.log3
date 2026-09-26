@@ -1,0 +1,34 @@
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2026 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+Licensing (25.02-p001) initialized with server/s 5280@CadenceSERVER at [09-11-2026 14:56:10.098561]
+
+
+Version: 26.10-p002_1, built Tue Jun 16 04:05:44 PDT 2026
+Options: 
+Date:    Fri Sep 11 14:56:16 2026
+Host:    CadenceSoftware (x86_64 w/Linux 5.14.0-687.42.1.el9_8.x86_64) (2cores*4cpus*2physical cpus*Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz 12288KB) (16077788KB)
+PID:     9692
+OS:      Rocky Linux 9.8 (Blue Onyx)
+
+Checking out license: Genus_Synthesis
+License checkout complete (0 seconds elapsed).
+Using CFE kit 26.10-s031_1, version 3239472, compiled for GBI
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Finished executable startup (7 seconds elapsed).
+
+Loading tool scripts...
+Finished loading tool scripts (20 seconds elapsed).
+
+@genus:root: 1> gui_show
+@genus:root: 2> exit
+
+Normal exit.

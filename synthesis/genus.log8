@@ -1,0 +1,248 @@
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2026 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+Licensing (25.02-p001) initialized with server/s 5280@CadenceSERVER at [09-15-2026 12:05:01.094465]
+
+
+Version: 26.10-p002_1, built Tue Jun 16 04:05:44 PDT 2026
+Options: -files genus_script.tcl 
+Date:    Tue Sep 15 12:06:48 2026
+Host:    CadenceSoftware (x86_64 w/Linux 5.14.0-687.42.1.el9_8.x86_64) (2cores*4cpus*2physical cpus*Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz 12288KB) (16077748KB)
+PID:     8236
+OS:      Rocky Linux 9.8 (Blue Onyx)
+
+Checking out license: Genus_Synthesis
+License checkout complete (40 seconds elapsed).
+Using CFE kit 26.10-s031_1, version 3239472, compiled for GBI
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Finished executable startup (247 seconds elapsed).
+
+Loading tool scripts...
+Finished loading tool scripts (19 seconds elapsed).
+
+#@ Processing -files option
+@genus:root: 1> source genus_script.tcl
+#@ Begin verbose source ./genus_script.tcl
+@file(genus_script.tcl) 1: set_db init_lib_search_path ../lib/
+  Setting attribute of root '/': 'init_lib_search_path' = ../lib/
+@file(genus_script.tcl) 2: set_db init_hdl_search_path ../rtl/
+  Setting attribute of root '/': 'init_hdl_search_path' = ../rtl/
+@file(genus_script.tcl) 4: set_db delete_unloaded_insts false
+  Setting attribute of root '/': 'delete_unloaded_insts' = false
+@file(genus_script.tcl) 5: set_db optimize_constant_0_flops false
+  Setting attribute of root '/': 'optimize_constant_0_flops' = false
+@file(genus_script.tcl) 6: set_db optimize_constant_1_flops false
+  Setting attribute of root '/': 'optimize_constant_1_flops' = false
+@file(genus_script.tcl) 7: set_db optimize_constant_feedback_seqs false
+  Setting attribute of root '/': 'optimize_constant_feedback_seqs' = false
+@file(genus_script.tcl) 9: read_libs slow.lib
+
+  Message Summary for Library slow.lib:
+  *************************************
+  Missing a function attribute in the output pin definition. [LBR-518]: 1
+  An unsupported construct was detected in this library. [LBR-40]: 1
+  *************************************
+ 
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 1.620000, 125.000000) in library 'slow.lib'.
+        : The nominal operating condition is represented, either by the nominal PVT values specified in the library source (via nom_process,nom_voltage and nom_temperature respectively), or by the default PVT values (1.0,1.0,1.0).
+@file(genus_script.tcl) 11: read_hdl {alu.v control_unit.v csr_file.v data_mem.v ecc_dmem_wrapper.v \
+          ecc_status_regs.v error_status_reg.v imm_gen.v inst_mem.v \
+          multicycle_rv32i.v reg_file.v secded_decoder.v secded_encoder.v \
+          soc_interconnect.v uart_rx_fifo.v uart_top.v uart_tx_fifo.v}
+Info    : Analyzing Verilog file '../rtl/alu.v' [VLOG-1482]
+Info    : Analyzing Verilog file '../rtl/control_unit.v' [VLOG-1482]
+Info    : Analyzing Verilog file '../rtl/csr_file.v' [VLOG-1482]
+Info    : Analyzing Verilog file '../rtl/data_mem.v' [VLOG-1482]
+Info    : Analyzing Verilog file '../rtl/ecc_dmem_wrapper.v' [VLOG-1482]
+Info    : Analyzing Verilog file '../rtl/ecc_status_regs.v' [VLOG-1482]
+Info    : Analyzing Verilog file '../rtl/error_status_reg.v' [VLOG-1482]
+Info    : Analyzing Verilog file '../rtl/imm_gen.v' [VLOG-1482]
+Info    : Analyzing Verilog file '../rtl/inst_mem.v' [VLOG-1482]
+Info    : Analyzing Verilog file '../rtl/multicycle_rv32i.v' [VLOG-1482]
+Info    : Analyzing Verilog file '../rtl/reg_file.v' [VLOG-1482]
+Info    : Analyzing Verilog file '../rtl/secded_decoder.v' [VLOG-1482]
+Info    : Analyzing Verilog file '../rtl/secded_encoder.v' [VLOG-1482]
+Info    : Analyzing Verilog file '../rtl/soc_interconnect.v' [VLOG-1482]
+Info    : Analyzing Verilog file '../rtl/uart_rx_fifo.v' [VLOG-1482]
+Info    : Analyzing Verilog file '../rtl/uart_top.v' [VLOG-1482]
+Info    : Analyzing Verilog file '../rtl/uart_tx_fifo.v' [VLOG-1482]
+@file(genus_script.tcl) 18: elaborate
+Info    : Elaborate module multicycle_rv32i [CFE-3007]
+Info    : Elaborating level=1 'multicycle_rv32i' (../rtl/multicycle_rv32i.v:207:1) [CFE-4218]
+Info    : Elaborating level=2 'soc_interconnect' (../rtl/soc_interconnect.v:1:1) [CFE-4218]
+Info    : Done elaborating level=2 (cpu=0) [CFE-4220]
+Info    : Elaborating level=2 'ecc_dmem_wrapper' (../rtl/ecc_dmem_wrapper.v:120:1) [CFE-4218]
+Info    : Elaborating level=3 'secded_encoder_DATA_WIDTH32_PARITY_WIDTH6' (../rtl/secded_encoder.v:1:1) [CFE-4218]
+Info    : Done elaborating level=3 (cpu=0) [CFE-4220]
+Info    : Elaborating level=3 'data_mem' (../rtl/data_mem.v:39:1) [CFE-4218]
+Info    : Done elaborating level=3 (cpu=0) [CFE-4220]
+Info    : Elaborating level=3 'secded_decoder_DATA_WIDTH32_PARITY_WIDTH6' (../rtl/secded_decoder.v:1:1) [CFE-4218]
+Info    : Done elaborating level=3 (cpu=0) [CFE-4220]
+Info    : Elaborating level=3 'error_status_reg_CNT_WIDTH32' (../rtl/error_status_reg.v:1:1) [CFE-4218]
+Info    : Done elaborating level=3 (cpu=0) [CFE-4220]
+Info    : Done elaborating level=2 (cpu=0) [CFE-4220]
+Info    : Elaborating level=2 'uart_top_CLK_FREQ100000000_BAUD_RATE115200' (../rtl/uart_top.v:1:1) [CFE-4218]
+Info    : Elaborating level=3 'uart_rx_fifo' (../rtl/uart_rx_fifo.v:1:1) [CFE-4218]
+Info    : Done elaborating level=3 (cpu=0) [CFE-4220]
+Info    : Elaborating level=3 'uart_tx_fifo' (../rtl/uart_tx_fifo.v:1:1) [CFE-4218]
+Info    : Done elaborating level=3 (cpu=0) [CFE-4220]
+Info    : Done elaborating level=2 (cpu=0) [CFE-4220]
+Info    : Elaborating level=2 'csr_file' (../rtl/csr_file.v:100:1) [CFE-4218]
+Info    : Done elaborating level=2 (cpu=0) [CFE-4220]
+Info    : Elaborating level=2 'inst_mem' (../rtl/inst_mem.v:6:1) [CFE-4218]
+Info    : Done elaborating level=2 (cpu=0) [CFE-4220]
+Info    : Elaborating level=2 'reg_file' (../rtl/reg_file.v:2:1) [CFE-4218]
+Info    : Done elaborating level=2 (cpu=0) [CFE-4220]
+Info    : Elaborating level=2 'imm_gen' (../rtl/imm_gen.v:1:1) [CFE-4218]
+Info    : Done elaborating level=2 (cpu=0) [CFE-4220]
+Info    : Elaborating level=2 'alu' (../rtl/alu.v:1:1) [CFE-4218]
+Info    : Done elaborating level=2 (cpu=0) [CFE-4220]
+Info    : Elaborating level=2 'control_unit' (../rtl/control_unit.v:194:1) [CFE-4218]
+Info    : Done elaborating level=2 (cpu=0) [CFE-4220]
+Info    : Elaborating level=2 'ecc_status_regs' (../rtl/ecc_status_regs.v:37:1) [CFE-4218]
+Info    : Done elaborating level=2 (cpu=0) [CFE-4220]
+Info    : Done elaborating level=1 (cpu=0) [CFE-4220]
+optimize module multicycle_rv32i
++-----------------+---------+---------+--------+--------+-------+--------+
+| xform           | accepts | rejects | levels |   area |   cpu |  bytes |
++-----------------+---------+---------+--------+--------+-------+--------+
+| array_sel_cse   |       1 |       0 |     73 | 121234 |    29 | 2.043G |
+| array           |       0 |       6 |     73 | 121234 |    29 | 2.043G |
+| array_cse       |       0 |       0 |     73 | 121234 |    29 | 2.043G |
+| array_cas       |       4 |       0 |     73 | 121234 |    29 | 2.043G |
+| array_implement |       6 |       0 |     73 | 175153 |    29 | 2.043G |
+| inline          |       6 |       0 |     73 | 175153 |    29 | 2.043G |
+| preserve        |     258 |    3915 |     73 | 175153 |    29 | 2.043G |
+| process         |       0 |       0 |     73 | 175153 |    29 | 2.043G |
+| preserve        |     258 |    3915 |     73 | 175153 |    29 | 2.043G |
+| constant_index  |       2 |     299 |     73 | 175153 |    29 | 2.043G |
+| tristate        |       0 |       0 |     73 | 175153 |    29 | 2.043G |
+| control         |     357 |       0 |     60 | 218403 |    29 | 2.043G |
+| clean_cassign   |       0 |    1999 |     60 | 218403 |    29 | 2.043G |
+| wire            |    1739 |     260 |     60 | 218403 |    29 | 2.043G |
+| merge           |       0 |      80 |     60 | 218403 |    29 | 2.043G |
+| clean_bitconcat |       0 |      13 |     60 | 218403 |    29 | 2.043G |
+| identity        |       1 |    1417 |     60 | 218442 |    29 | 2.043G |
+| operator_share  |       1 |     710 |     60 | 218403 |    29 | 2.043G |
+| cse             |     149 |       0 |     60 | 215785 |    29 | 2.043G |
+| ssm             |       1 |       0 |     62 | 218773 |    29 | 2.043G |
+| index_chain     |       6 |    1807 |     62 | 218071 |    29 | 2.043G |
+| trim            |     196 |    5324 |     62 | 217109 |    29 | 2.043G |
+| identity        |       0 |    1375 |     62 | 217109 |    29 | 2.043G |
+| operator_share  |       0 |     689 |     62 | 217109 |    29 | 2.043G |
+| propagate       |      89 |    3017 |     61 | 216785 |    29 | 2.043G |
+| share_decoders  |       0 |       0 |     61 | 216785 |    29 | 2.043G |
+| simplify        |     680 |    1182 |     61 | 114860 |    29 | 2.043G |
+| exponent        |       0 |       0 |     61 | 114860 |    29 | 2.043G |
+| wire            |     677 |     259 |     61 | 114860 |    29 | 2.043G |
+| include_mux     |       1 |     405 |     61 | 114846 |    29 | 2.043G |
+| collapse_mux    |       0 |      26 |     61 | 114846 |    29 | 2.043G |
+| condition       |       1 |     370 |     52 | 114678 |    29 | 2.043G |
+| decoder         |       2 |       0 |     52 | 104798 |    29 | 2.043G |
+| simplify        |       1 |    1469 |     52 | 104798 |    29 | 2.043G |
+| variable_index  |       0 |       0 |     52 | 104798 |    29 | 2.043G |
+| cse             |      39 |       0 |     52 | 104798 |    29 | 2.043G |
+| ccp             |       0 |     371 |     52 | 104798 |    29 | 2.043G |
+| csa             |       0 |       0 |     52 | 104798 |    29 | 2.043G |
+| trunc_round     |       0 |       0 |     52 | 104798 |    29 | 2.043G |
+| extension       |       9 |     602 |     52 | 104798 |    29 | 2.043G |
+| prune           |       0 |     275 |     52 | 104798 |    29 | 2.043G |
+| propagate       |      34 |    2561 |     52 | 104798 |    29 | 2.043G |
+| trim            |     297 |    4197 |     52 | 104798 |    29 | 2.043G |
+| pricase         |       0 |     371 |     52 | 104798 |    29 | 2.043G |
+| combine_sop     |      11 |     360 |     52 | 104892 |    29 | 2.043G |
+| wire            |       0 |     266 |     52 | 104892 |    29 | 2.043G |
+| sva_chain       |       0 |       0 |     52 | 104892 |    29 | 2.043G |
+| tristate_chain  |       0 |       0 |     52 | 104892 |    29 | 2.043G |
+| mult_shift      |       0 |       0 |     52 | 104892 |    29 | 2.043G |
+| simplify_oper   |       0 |       4 |     52 | 104892 |    29 | 2.043G |
+| control_mux     |       0 |       0 |     52 | 104892 |    29 | 2.043G |
++-----------------+---------+---------+--------+--------+-------+--------+
+Info    : Implementing module multicycle_rv32i [CFE-6011]
+Info    : Implementing module soc_interconnect [CFE-6011]
+Info    : Done implementing module soc_interconnect (size=17/cache=38/cpu=0) [CFE-6012]
+Info    : Implementing module ecc_dmem_wrapper [CFE-6011]
+Info    : Implementing module secded_encoder_DATA_WIDTH32_PARITY_WIDTH6 [CFE-6011]
+Info    : Done implementing module secded_encoder_DATA_WIDTH32_PARITY_WIDTH6 (size=171/cache=265/cpu=0) [CFE-6012]
+Info    : Implementing module data_mem [CFE-6011]
+Info    : Done implementing module data_mem (size=1288/cache=3604/cpu=0) [CFE-6012]
+Info    : Implementing module secded_decoder_DATA_WIDTH32_PARITY_WIDTH6 [CFE-6011]
+Info    : Done implementing module secded_decoder_DATA_WIDTH32_PARITY_WIDTH6 (size=272/cache=346/cpu=0) [CFE-6012]
+Info    : Implementing module error_status_reg_CNT_WIDTH32 [CFE-6011]
+Info    : Done implementing module error_status_reg_CNT_WIDTH32 (size=15/cache=50/cpu=0) [CFE-6012]
+Info    : Done implementing module ecc_dmem_wrapper (size=8/cache=41/cpu=0) [CFE-6012]
+Info    : Implementing module uart_top_CLK_FREQ100000000_BAUD_RATE115200 [CFE-6011]
+Info    : Implementing module uart_rx_fifo [CFE-6011]
+Info    : Done implementing module uart_rx_fifo (size=30/cache=75/cpu=1) [CFE-6012]
+Info    : Implementing module uart_tx_fifo [CFE-6011]
+Info    : Done implementing module uart_tx_fifo (size=38/cache=94/cpu=0) [CFE-6012]
+Info    : Done implementing module uart_top_CLK_FREQ100000000_BAUD_RATE115200 (size=106/cache=264/cpu=1) [CFE-6012]
+Info    : Implementing module csr_file [CFE-6011]
+Info    : Done implementing module csr_file (size=59/cache=138/cpu=0) [CFE-6012]
+Info    : Implementing module inst_mem [CFE-6011]
+Info    : Done implementing module inst_mem (size=262/cache=274/cpu=0) [CFE-6012]
+Info    : Implementing module reg_file [CFE-6011]
+Info    : Done implementing module reg_file (size=174/cache=472/cpu=0) [CFE-6012]
+Info    : Implementing module imm_gen [CFE-6011]
+Info    : Done implementing module imm_gen (size=28/cache=63/cpu=0) [CFE-6012]
+Info    : Implementing module alu [CFE-6011]
+Info    : Done implementing module alu (size=15/cache=28/cpu=0) [CFE-6012]
+Info    : Implementing module control_unit [CFE-6011]
+Info    : Done implementing module control_unit (size=63/cache=248/cpu=0) [CFE-6012]
+Info    : Implementing module ecc_status_regs [CFE-6011]
+Info    : Done implementing module ecc_status_regs (size=7/cache=27/cpu=0) [CFE-6012]
+Info    : Done implementing module multicycle_rv32i (size=63/cache=223/cpu=1) [CFE-6012]
+Info    : Done implementing top module multicycle_rv32i [CFE-6022]
+Checking for source RTL...
+Check completed for source RTL.
+Running Unified Mux Engine Tricks...
+Completed Unified Mux Engine Tricks
+
+Stage: post_elab
+------------------------------------------------------
+| Trick            | Accepts | Rejects | Runtime (s) | 
+------------------------------------------------------
+| ume_cse          |       1 |       0 |        0.04 | 
+| ume_shrink       |       3 |       0 |        0.02 | 
+| ume_sweep        |       1 |       0 |        0.03 | 
+| other transforms |       0 |       0 |        0.08 | 
+------------------------------------------------------
+Starting optimize datapath shifters [v1.0] (stage: post_elab, startdef: multicycle_rv32i, recur: true)
+Completed optimize datapath shifters (accepts: 0, rejects: 0, runtime: 0.000s)
+Starting clip mux common data inputs [v1.0] (stage: post_elab, startdef: multicycle_rv32i, recur: true)
+Completed clip mux common data inputs (accepts: 0, rejects: 0, runtime: 0.003s)
+Starting clip the non-user hierarchies [v2.0] (stage: post_elab, startdef: multicycle_rv32i, recur: true)
+Completed clip the non-user hierarchies (accepts: 0, rejects: 0, runtime: 0.001s)
+Starting basic netlist cleanup [v1.0] (stage: post_elab, startdef: multicycle_rv32i, recur: true)
+Completed basic netlist cleanup (accepts: 0, rejects: 0, runtime: 0.000s)
+
+Stage: post_elab
+------------------------------------------------------
+| Transform        | Accepts | Rejects | Runtime (s) | 
+------------------------------------------------------
+| other transforms |       0 |       0 |        0.00 | 
+------------------------------------------------------
+Info    : Done Elaborating Design. [ELAB-3]
+        : Done elaborating 'multicycle_rv32i'.
+UM:   flow.cputime  flow.realtime  timing.setup.tns  timing.setup.wns  snapshot
+UM:*                                                                   elaborate
+@file(genus_script.tcl) 20: set_db [get_db hdl_archs *csr_file*] .preserve true
+Error   : <Start> word is not recognized. [TUI-182] [get_db]
+        : 'hdl_archs' is not a recognized object/attribute. Type 'help root:' to get a list of all supported objects and attributes.
+        : Check if the given <Start> word is a valid object_type, object or attribute.
+#@ End verbose source ./genus_script.tcl
+1
+Encountered problems processing file: genus_script.tcl
+@genus:root: 2> gui_show
+@genus:root: 3> exit
+
+Normal exit.
