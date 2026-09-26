@@ -1,0 +1,21 @@
+                          CONFORMAL (R)
+                   Version 26.10-s200 (09-Jul-2026) (64 bit executable)
+   Copyright (c) Cadence Design Systems, Inc., 1997-2026. All Rights Reserved
+
+
+This program is proprietary and confidential information belonging to
+Cadence Design Systems, Inc., and may be used and disclosed only as authorized
+in a license agreement controlling such use and disclosure.
+
+CPU time     : 0.31    seconds
+Elapse time  : 261     seconds
+Memory usage : 151.68  M bytes
+// Command: read library ../lib/slow.lib -liberty -both
+// Parsing file ../lib/slow.lib ...
+// Note: Read Liberty library successfully
+CPU time     : 0.46    seconds
+Elapse time  : 261     seconds
+Memory usage : 163.90  M bytes
+// Command: write library slow.v -verilog -replace
+// Note: Wrote VERILOG library successfully
+// Command: exit

@@ -1,0 +1,216 @@
+09/17/2026 10:18:46 (156696-1277630016 lec): Initialization started (25.02-p001)...
+09/17/2026 10:18:46 (156696-1277630016): TLS ok
+09/17/2026 10:18:46 (156696-1277630016): CDS_LIC_VALIDATE disabled
+09/17/2026 10:18:46 (156696-1277630016): Use of default clients files is enabled
+09/17/2026 10:20:06 (156696-1277630016): FLEXnet version 11.16.4.0 build 252457
+09/17/2026 10:20:06 (156696-1277630016): Process ID 5995
+09/17/2026 10:20:06 (156696-1277630016): Queue-polling turned on.
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of queue-polling interval minimum is 30.
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of queue-polling reconnect timeout is 300.
+09/17/2026 10:20:06 (156696-1277630016): Creating a new job ...
+09/17/2026 10:20:06 (156696-1277630016): Validating server path: 
+09/17/2026 10:20:06 (156696-1277630016): Server path validation status: 0
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of license path is '5280@CadenceSERVER'.
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of recheck interval minimum is 290.
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of 2000000000 maximum retry calls.
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of sleep time value of 0.
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of display specification is ':0'.
+09/17/2026 10:20:06 (156696-1277630016):   Licenses will be checked out using PD18@CadenceSoftware(:0).
+09/17/2026 10:20:06 (156696-1277630016):   (System spec would have been PD18@CadenceSoftware() )
+09/17/2026 10:20:06 (156696-1277630016): Job creation completed with status 0 (time 0).
+09/17/2026 10:20:06 (156696-1277630016): Creating a new job ...
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of license path is '5280@CadenceSERVER'.
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of recheck interval minimum is 290.
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of 2000000000 maximum retry calls.
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of sleep time value of 0.
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of display specification is ':0'.
+09/17/2026 10:20:06 (156696-1277630016):   Licenses will be checked out using PD18@CadenceSoftware(:0).
+09/17/2026 10:20:06 (156696-1277630016):   (System spec would have been PD18@CadenceSoftware() )
+09/17/2026 10:20:06 (156696-1277630016): Job creation completed with status 0 (time 0).
+09/17/2026 10:20:06 (156696-1277630016): Creating a new job ...
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of license path is '5280@CadenceSERVER'.
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of recheck interval minimum is 290.
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of 2000000000 maximum retry calls.
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of sleep time value of 0.
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of display specification is ':0'.
+09/17/2026 10:20:06 (156696-1277630016):   Licenses will be checked out using PD18@CadenceSoftware(:0).
+09/17/2026 10:20:06 (156696-1277630016):   (System spec would have been PD18@CadenceSoftware() )
+09/17/2026 10:20:06 (156696-1277630016): Job creation completed with status 0 (time 0).
+09/17/2026 10:20:06 (156696-1277630016): Creating a new job ...
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of license path is '5280@CadenceSERVER'.
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of recheck interval minimum is 290.
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of 2000000000 maximum retry calls.
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of sleep time value of 0.
+09/17/2026 10:20:06 (156696-1277630016):   Configuration of display specification is ':0'.
+09/17/2026 10:20:06 (156696-1277630016):   Licenses will be checked out using PD18@CadenceSoftware(:0).
+09/17/2026 10:20:06 (156696-1277630016):   (System spec would have been PD18@CadenceSoftware() )
+09/17/2026 10:20:06 (156696-1277630016): Job creation completed with status 0 (time 0).
+09/17/2026 10:20:06 (156696-1277630016): Initialization completed with status 0 (time 80).
+09/17/2026 10:21:47 (156696-1277630016): Api started: api=CheckOut;feature=Conformal_Ultra;version=26.1;count=1,wait=SS_NOWAIT;lic_type=0
+09/17/2026 10:21:47 (156696-1277630016): Check-out started ....
+09/17/2026 10:21:47 (156696-1277630016): Checking out 1 license(s) for Conformal_Ultra 26.100...
+09/17/2026 10:21:47 (156696-1277630016):   (Checked out from file '5280@CadenceSERVER',
+             line '26.1 07-jul-2027 10 CFBCEC281C3CCB0CFFE5 ')
+09/17/2026 10:21:47 (156696-1277630016): Check-out completed with status 0 (time 0).
+09/17/2026 10:22:27 (156696-1277630016): Api started: api=CheckOut;feature=Conformal_Asic;version=26.1;count=1,wait=SS_NOWAIT;lic_type=0
+09/17/2026 10:22:27 (156696-1277630016): Check-out started ....
+09/17/2026 10:22:27 (156696-1277630016): Creating a new job ...
+09/17/2026 10:22:27 (156696-1277630016): Validating server path: 5280@CadenceSERVER
+09/17/2026 10:22:27 (156696-1277630016): Server path validation status: 0
+09/17/2026 10:22:27 (156696-1277630016):   Configuration of license path is '5280@CadenceSERVER'.
+09/17/2026 10:22:27 (156696-1277630016):   Configuration of recheck interval minimum is 290.
+09/17/2026 10:22:27 (156696-1277630016):   Configuration of 2000000000 maximum retry calls.
+09/17/2026 10:22:27 (156696-1277630016):   Configuration of sleep time value of 0.
+09/17/2026 10:22:27 (156696-1277630016):   Configuration of display specification is ':0'.
+09/17/2026 10:22:27 (156696-1277630016):   Licenses will be checked out using PD18@CadenceSoftware(:0).
+09/17/2026 10:22:27 (156696-1277630016):   (System spec would have been PD18@CadenceSoftware() )
+09/17/2026 10:22:27 (156696-1277630016): Job creation completed with status 0 (time 0).
+09/17/2026 10:22:27 (156696-1277630016): Checking out 1 license(s) for Conformal_Asic 26.100...
+09/17/2026 10:22:27 (156696-1277630016):   (Checked out from file '5280@CadenceSERVER',
+             line '26.1 07-jul-2027 10 2F1CEC18FCB197FA1696 ')
+09/17/2026 10:22:27 (156696-1277630016): Check-out completed with status 0 (time 0).
+09/17/2026 10:23:07 (156696-1277630016): Recheck started ....
+09/17/2026 10:23:07 (156696-1277630016): Api started: api=Recheck
+09/17/2026 10:23:07 (156696-1277630016):   Checking feature Conformal_Ultra
+09/17/2026 10:23:07 (156696-1277630016):   Checking feature Conformal_Asic
+09/17/2026 10:23:07 (156696-1277630016):   Time spent in server Recheck was 0.
+09/17/2026 10:23:07 (156696-1277630016): Re-check completed with status 0 (time 0).
+09/17/2026 10:23:07 (156696-1277630016): Recheck started ....
+09/17/2026 10:23:07 (156696-1277630016): Api started: api=Recheck
+09/17/2026 10:23:07 (156696-1277630016):   Actual recheck skipped due to recheck interval...
+09/17/2026 10:23:07 (156696-1277630016): Re-check completed with status 0 (time 0).
+09/17/2026 10:23:07 (156696-1277630016): Recheck started ....
+09/17/2026 10:23:07 (156696-1277630016): Api started: api=Recheck
+09/17/2026 10:23:07 (156696-1277630016):   Actual recheck skipped due to recheck interval...
+09/17/2026 10:23:07 (156696-1277630016): Re-check completed with status 0 (time 0).
+09/17/2026 10:23:07 (156696-1277630016): Recheck started ....
+09/17/2026 10:23:07 (156696-1277630016): Api started: api=Recheck
+09/17/2026 10:23:07 (156696-1277630016):   Actual recheck skipped due to recheck interval...
+09/17/2026 10:23:07 (156696-1277630016): Re-check completed with status 0 (time 0).
+09/17/2026 10:23:07 (156696-1277630016): Recheck started ....
+09/17/2026 10:23:07 (156696-1277630016): Api started: api=Recheck
+09/17/2026 10:23:07 (156696-1277630016):   Actual recheck skipped due to recheck interval...
+09/17/2026 10:23:07 (156696-1277630016): Re-check completed with status 0 (time 0).
+09/17/2026 10:23:28 (156696-1277630016): Exit started ....
+09/17/2026 10:23:28 (156696-1277630016): Check-in (Increment) of Conformal_Ultra completed with status 0 (time 0).
+09/17/2026 10:23:28 (156696-1277630016): Creating a new job ...
+09/17/2026 10:23:28 (156696-1277630016): Validating server path: 5280@CadenceSERVER
+09/17/2026 10:23:28 (156696-1277630016): Server path validation status: 0
+09/17/2026 10:23:28 (156696-1277630016):   Configuration of license path is '5280@CadenceSERVER'.
+09/17/2026 10:23:28 (156696-1277630016):   Configuration of recheck interval minimum is 290.
+09/17/2026 10:23:28 (156696-1277630016):   Configuration of 2000000000 maximum retry calls.
+09/17/2026 10:23:28 (156696-1277630016):   Configuration of sleep time value of 0.
+09/17/2026 10:23:28 (156696-1277630016):   Configuration of display specification is ':0'.
+09/17/2026 10:23:28 (156696-1277630016):   Licenses will be checked out using PD18@CadenceSoftware(:0).
+09/17/2026 10:23:28 (156696-1277630016):   (System spec would have been PD18@CadenceSoftware() )
+09/17/2026 10:23:28 (156696-1277630016): Job creation completed with status 0 (time 0).
+09/17/2026 10:23:28 (156696-1277630016): Check-in (Increment) of Conformal_Asic completed with status 0 (time 0).
+09/17/2026 10:23:28 (156696-1277630016): Exit completed with status 0 (time 0).
+09/17/2026 13:09:47 (751057-1333528128 lec): Initialization started (25.02-p001)...
+09/17/2026 13:09:47 (751057-1333528128): TLS ok
+09/17/2026 13:09:47 (751057-1333528128): CDS_LIC_VALIDATE disabled
+09/17/2026 13:09:47 (751057-1333528128): Use of default clients files is enabled
+09/17/2026 13:09:47 (751057-1333528128): FLEXnet version 11.16.4.0 build 252457
+09/17/2026 13:09:47 (751057-1333528128): Process ID 9708
+09/17/2026 13:09:47 (751057-1333528128): Queue-polling turned on.
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of queue-polling interval minimum is 30.
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of queue-polling reconnect timeout is 300.
+09/17/2026 13:09:47 (751057-1333528128): Creating a new job ...
+09/17/2026 13:09:47 (751057-1333528128): Validating server path: 
+09/17/2026 13:09:47 (751057-1333528128): Server path validation status: 0
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of license path is '5280@CadenceSERVER'.
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of recheck interval minimum is 290.
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of 2000000000 maximum retry calls.
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of sleep time value of 0.
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of display specification is ':0'.
+09/17/2026 13:09:47 (751057-1333528128):   Licenses will be checked out using PD18@CadenceSoftware(:0).
+09/17/2026 13:09:47 (751057-1333528128):   (System spec would have been PD18@CadenceSoftware() )
+09/17/2026 13:09:47 (751057-1333528128): Job creation completed with status 0 (time 0).
+09/17/2026 13:09:47 (751057-1333528128): Creating a new job ...
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of license path is '5280@CadenceSERVER'.
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of recheck interval minimum is 290.
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of 2000000000 maximum retry calls.
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of sleep time value of 0.
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of display specification is ':0'.
+09/17/2026 13:09:47 (751057-1333528128):   Licenses will be checked out using PD18@CadenceSoftware(:0).
+09/17/2026 13:09:47 (751057-1333528128):   (System spec would have been PD18@CadenceSoftware() )
+09/17/2026 13:09:47 (751057-1333528128): Job creation completed with status 0 (time 0).
+09/17/2026 13:09:47 (751057-1333528128): Creating a new job ...
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of license path is '5280@CadenceSERVER'.
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of recheck interval minimum is 290.
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of 2000000000 maximum retry calls.
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of sleep time value of 0.
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of display specification is ':0'.
+09/17/2026 13:09:47 (751057-1333528128):   Licenses will be checked out using PD18@CadenceSoftware(:0).
+09/17/2026 13:09:47 (751057-1333528128):   (System spec would have been PD18@CadenceSoftware() )
+09/17/2026 13:09:47 (751057-1333528128): Job creation completed with status 0 (time 0).
+09/17/2026 13:09:47 (751057-1333528128): Creating a new job ...
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of license path is '5280@CadenceSERVER'.
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of recheck interval minimum is 290.
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of 2000000000 maximum retry calls.
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of sleep time value of 0.
+09/17/2026 13:09:47 (751057-1333528128):   Configuration of display specification is ':0'.
+09/17/2026 13:09:47 (751057-1333528128):   Licenses will be checked out using PD18@CadenceSoftware(:0).
+09/17/2026 13:09:47 (751057-1333528128):   (System spec would have been PD18@CadenceSoftware() )
+09/17/2026 13:09:47 (751057-1333528128): Job creation completed with status 0 (time 0).
+09/17/2026 13:09:47 (751057-1333528128): Initialization completed with status 0 (time 0).
+09/17/2026 13:09:47 (751057-1333528128): Api started: api=CheckOut;feature=Conformal_Ultra;version=26.1;count=1,wait=SS_NOWAIT;lic_type=0
+09/17/2026 13:09:47 (751057-1333528128): Check-out started ....
+09/17/2026 13:09:47 (751057-1333528128): Checking out 1 license(s) for Conformal_Ultra 26.100...
+09/17/2026 13:09:48 (751057-1333528128):   (Checked out from file '5280@CadenceSERVER',
+             line '26.1 07-jul-2027 10 CFBCEC281C3CCB0CFFE5 ')
+09/17/2026 13:09:48 (751057-1333528128): Check-out completed with status 0 (time 1).
+09/17/2026 13:09:48 (751057-1333528128): Api started: api=CheckOut;feature=Conformal_Asic;version=26.1;count=1,wait=SS_NOWAIT;lic_type=0
+09/17/2026 13:09:48 (751057-1333528128): Check-out started ....
+09/17/2026 13:09:48 (751057-1333528128): Creating a new job ...
+09/17/2026 13:09:48 (751057-1333528128): Validating server path: 5280@CadenceSERVER
+09/17/2026 13:09:48 (751057-1333528128): Server path validation status: 0
+09/17/2026 13:09:48 (751057-1333528128):   Configuration of license path is '5280@CadenceSERVER'.
+09/17/2026 13:09:48 (751057-1333528128):   Configuration of recheck interval minimum is 290.
+09/17/2026 13:09:48 (751057-1333528128):   Configuration of 2000000000 maximum retry calls.
+09/17/2026 13:09:48 (751057-1333528128):   Configuration of sleep time value of 0.
+09/17/2026 13:09:48 (751057-1333528128):   Configuration of display specification is ':0'.
+09/17/2026 13:09:48 (751057-1333528128):   Licenses will be checked out using PD18@CadenceSoftware(:0).
+09/17/2026 13:09:48 (751057-1333528128):   (System spec would have been PD18@CadenceSoftware() )
+09/17/2026 13:09:48 (751057-1333528128): Job creation completed with status 0 (time 0).
+09/17/2026 13:09:48 (751057-1333528128): Checking out 1 license(s) for Conformal_Asic 26.100...
+09/17/2026 13:09:48 (751057-1333528128):   (Checked out from file '5280@CadenceSERVER',
+             line '26.1 07-jul-2027 10 2F1CEC18FCB197FA1696 ')
+09/17/2026 13:09:48 (751057-1333528128): Check-out completed with status 0 (time 0).
+09/17/2026 13:09:48 (751057-1333528128): Recheck started ....
+09/17/2026 13:09:48 (751057-1333528128): Api started: api=Recheck
+09/17/2026 13:09:48 (751057-1333528128):   Checking feature Conformal_Ultra
+09/17/2026 13:09:48 (751057-1333528128):   Checking feature Conformal_Asic
+09/17/2026 13:09:48 (751057-1333528128):   Time spent in server Recheck was 0.
+09/17/2026 13:09:48 (751057-1333528128): Re-check completed with status 0 (time 0).
+09/17/2026 13:09:48 (751057-1333528128): Recheck started ....
+09/17/2026 13:09:48 (751057-1333528128): Api started: api=Recheck
+09/17/2026 13:09:48 (751057-1333528128):   Actual recheck skipped due to recheck interval...
+09/17/2026 13:09:48 (751057-1333528128): Re-check completed with status 0 (time 0).
+09/17/2026 13:09:48 (751057-1333528128): Recheck started ....
+09/17/2026 13:09:48 (751057-1333528128): Api started: api=Recheck
+09/17/2026 13:09:48 (751057-1333528128):   Actual recheck skipped due to recheck interval...
+09/17/2026 13:09:48 (751057-1333528128): Re-check completed with status 0 (time 0).
+09/17/2026 13:09:48 (751057-1333528128): Recheck started ....
+09/17/2026 13:09:48 (751057-1333528128): Api started: api=Recheck
+09/17/2026 13:09:48 (751057-1333528128):   Actual recheck skipped due to recheck interval...
+09/17/2026 13:09:48 (751057-1333528128): Re-check completed with status 0 (time 0).
+09/17/2026 13:09:50 (751057-1333528128): Recheck started ....
+09/17/2026 13:09:50 (751057-1333528128): Api started: api=Recheck
+09/17/2026 13:09:50 (751057-1333528128):   Actual recheck skipped due to recheck interval...
+09/17/2026 13:09:50 (751057-1333528128): Re-check completed with status 0 (time 0).
+09/17/2026 13:09:51 (751057-1333528128): Exit started ....
+09/17/2026 13:09:51 (751057-1333528128): Check-in (Increment) of Conformal_Ultra completed with status 0 (time 0).
+09/17/2026 13:09:51 (751057-1333528128): Creating a new job ...
+09/17/2026 13:09:51 (751057-1333528128): Validating server path: 5280@CadenceSERVER
+09/17/2026 13:09:51 (751057-1333528128): Server path validation status: 0
+09/17/2026 13:09:51 (751057-1333528128):   Configuration of license path is '5280@CadenceSERVER'.
+09/17/2026 13:09:51 (751057-1333528128):   Configuration of recheck interval minimum is 290.
+09/17/2026 13:09:51 (751057-1333528128):   Configuration of 2000000000 maximum retry calls.
+09/17/2026 13:09:51 (751057-1333528128):   Configuration of sleep time value of 0.
+09/17/2026 13:09:51 (751057-1333528128):   Configuration of display specification is ':0'.
+09/17/2026 13:09:51 (751057-1333528128):   Licenses will be checked out using PD18@CadenceSoftware(:0).
+09/17/2026 13:09:51 (751057-1333528128):   (System spec would have been PD18@CadenceSoftware() )
+09/17/2026 13:09:51 (751057-1333528128): Job creation completed with status 0 (time 0).
+09/17/2026 13:09:51 (751057-1333528128): Check-in (Increment) of Conformal_Asic completed with status 0 (time 0).
+09/17/2026 13:09:51 (751057-1333528128): Exit completed with status 0 (time 0).

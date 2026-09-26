@@ -1,0 +1,61 @@
+                          CONFORMAL (R)
+                   Version 26.10-s200 (09-Jul-2026) (64 bit executable)
+   Copyright (c) Cadence Design Systems, Inc., 1997-2026. All Rights Reserved
+
+
+This program is proprietary and confidential information belonging to
+Cadence Design Systems, Inc., and may be used and disclosed only as authorized
+in a license agreement controlling such use and disclosure.
+
+CPU time     : 0.15    seconds
+Elapse time  : 1       seconds
+Memory usage : 136.05  M bytes
+// Command: read library ../lib/slow.v -verilog -both
+// Parsing file ../lib/slow.v ...
+// Warning: (RTL14) Signal has input but it has no output (occurrence:6)
+// Warning: (RTL14.1) Fanout load of the signal is removed (occurrence:36)
+// Warning: (VLG5.5) Internal primitive is recognized (occurrence:140)
+// Warning: (VLG5.6) Named port association is ignored for primitive gate (occurrence:140)
+// Warning: (IGN4) Attribute instance(s) are ignored (occurrence:2)
+// Warning: (IGN7.1) trireg net is modeled as a latch to hold value (occurrence:1)
+// Note: Read VERILOG library successfully
+// Command: read design ../rtl/multicycle_rv32i.v \
+//                      ../rtl/alu.v \
+//                      ../rtl/control_unit.v \
+//                      ../rtl/csr_file.v \
+//                      ../rtl/data_mem.v \
+//                      ../rtl/ecc_dmem_wrapper.v \
+//                      ../rtl/ecc_status_regs.v \
+//                      ../rtl/error_status_reg.v \
+//                      ../rtl/imm_gen.v \
+//                      ../rtl/inst_mem.v \
+//                      ../rtl/reg_file.v \
+//                      ../rtl/secded_decoder.v \
+//                      ../rtl/secded_encoder.v \
+//                      ../rtl/soc_interconnect.v \
+//                      ../rtl/uart_rx_fifo.v \
+//                      ../rtl/uart_top.v \
+//                      ../rtl/uart_tx_fifo.v \
+//                      -verilog -golden
+// Parsing file ../rtl/multicycle_rv32i.v ...
+// Parsing file ../rtl/alu.v ...
+// Parsing file ../rtl/control_unit.v ...
+// Parsing file ../rtl/csr_file.v ...
+// Parsing file ../rtl/data_mem.v ...
+// Parsing file ../rtl/ecc_dmem_wrapper.v ...
+// Parsing file ../rtl/ecc_status_regs.v ...
+// Parsing file ../rtl/error_status_reg.v ...
+// Parsing file ../rtl/imm_gen.v ...
+// Parsing file ../rtl/inst_mem.v ...
+// Parsing file ../rtl/reg_file.v ...
+// Parsing file ../rtl/secded_decoder.v ...
+// Parsing file ../rtl/secded_encoder.v ...
+// Parsing file ../rtl/soc_interconnect.v ...
+// Parsing file ../rtl/uart_rx_fifo.v ...
+// Parsing file ../rtl/uart_top.v ...
+// Parsing file ../rtl/uart_tx_fifo.v ...
+// Error: ../rtl/data_mem.v:88 Module 'ram_256x16A' is referenced but not defined.
+// Error: ../rtl/data_mem.v:99 Module 'ram_256x16A' is referenced but not defined.
+// Error: ../rtl/data_mem.v:110 Module 'ram_256x16A' is referenced but not defined.
+// 'dofile /home/PD18/ECC_MEMORY_PD/Equivalence_checking/ecc_memory.do' is aborted at line 24
+// Command: exit

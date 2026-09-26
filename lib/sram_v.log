@@ -1,0 +1,19 @@
+                          CONFORMAL (R)
+                   Version 26.10-s200 (09-Jul-2026) (64 bit executable)
+   Copyright (c) Cadence Design Systems, Inc., 1997-2026. All Rights Reserved
+
+
+This program is proprietary and confidential information belonging to
+Cadence Design Systems, Inc., and may be used and disclosed only as authorized
+in a license agreement controlling such use and disclosure.
+
+CPU time     : 0.19    seconds
+Elapse time  : 1       seconds
+Memory usage : 135.93  M bytes
+// Command: read library ../memory/ram_256x16A_slow_syn.lib -liberty -both
+// Error: Directory ../memory of file '../memory/ram_256x16A_slow_syn.lib' does not exist.
+// Error: FIL1.2: Failed to open file
+//  Library file not found
+// Error: Read library failed
+// 'dofile /home/PD18/ECC_MEMORY_PD/lib/sram_to_v.do' is aborted at line 2
+// Command: exit

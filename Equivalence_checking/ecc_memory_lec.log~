@@ -1,0 +1,16 @@
+                          CONFORMAL (R)
+                   Version 26.10-s200 (09-Jul-2026) (64 bit executable)
+   Copyright (c) Cadence Design Systems, Inc., 1997-2026. All Rights Reserved
+
+
+This program is proprietary and confidential information belonging to
+Cadence Design Systems, Inc., and may be used and disclosed only as authorized
+in a license agreement controlling such use and disclosure.
+
+CPU time     : 0.15    seconds
+Elapse time  : 0       seconds
+Memory usage : 135.93  M bytes
+// Command: # Standard-cell library
+// Error: Unknown command # Standard-cell library.
+// 'dofile /home/PD18/ECC_MEMORY_PD/Equivalence_checking/ecc_memory.do' is aborted at line 3
+// Command: exit
